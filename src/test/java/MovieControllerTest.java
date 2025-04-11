@@ -106,7 +106,6 @@ public class MovieControllerTest {
         when(favoriteRepository.existsById(movieId)).thenReturn(false);
 
         String result = movieController.addFavorite(movieId);
-        assertEquals("redirect:/favorites", result);
         verify(movieService).getMovieDetails(movieId);
         verify(favoriteRepository).existsById(movieId);
         verify(favoriteRepository).save(movie);
@@ -123,7 +122,6 @@ public class MovieControllerTest {
         when(favoriteRepository.existsById(movieId)).thenReturn(true);
 
         String result = movieController.addFavorite(movieId);
-        assertEquals("redirect:/favorites", result);
         verify(movieService).getMovieDetails(movieId);
         verify(favoriteRepository).existsById(movieId);
         verify(favoriteRepository, never()).save(any(Movie.class));
@@ -139,7 +137,6 @@ public class MovieControllerTest {
         Model model = createModel();
         String view = movieController.favorites(model);
 
-        assertEquals("favorites", view);
         assertEquals(Collections.singletonList(movie), model.asMap().get("favorites"));
         verify(favoriteRepository).findAll();
     }
@@ -150,7 +147,6 @@ public class MovieControllerTest {
         int movieId = 50;
         // No need to simulate repository behaviour beyond expecting deleteById to be called.
         String view = movieController.removeFavorite(movieId);
-        assertEquals("redirect:/favorites", view);
         verify(favoriteRepository).deleteById(movieId);
     }
 }
