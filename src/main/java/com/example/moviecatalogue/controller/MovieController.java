@@ -47,7 +47,7 @@ public class MovieController {
         if (!favoriteRepository.existsById(movieId)) {
             favoriteRepository.save(movie);
         }
-        return "redirect:/favorites";
+        return "redirect:/";
     }
 
     // List all favorite movies
